@@ -7,7 +7,9 @@ public class ArrayStorage {
 
 
     void clear() {
-
+        for (int i = 0; i < storage.length; i++) {
+            storage[i] = null;
+        }
     }
 
     void save(Resume r) {
@@ -44,7 +46,7 @@ public class ArrayStorage {
                 counter++;
             } else counter++;
         }
-        Resume[] resumes = new Resume[counter];
+        Resume[] resumes = new Resume[10000];
         for (int i = 0, j = 0; i < resumes.length; i++) {
             if (storage[i] != null) {
                 resumes[j] = storage[i];
