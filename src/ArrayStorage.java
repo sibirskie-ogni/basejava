@@ -4,7 +4,7 @@
 
 public class ArrayStorage {
     Resume[] storage = new Resume[10000];
-
+    int size =0;
 
     void clear() {
         for (int i = 0; i < storage.length; i++) {
@@ -12,16 +12,9 @@ public class ArrayStorage {
         }
     }
 
-    void save(Resume r) {
-        for (int i = 0; i < storage.length; i++) {
-            if (storage[0] == null) {
-                storage[0] = r;
-                break;
-            } else if (storage[i] == null) {
-                storage[i] = r;
-                break;
-            }
-        }
+    void save(Resume resume) {
+    storage[size] =resume;
+    size++;
     }
 
 
@@ -79,12 +72,6 @@ public class ArrayStorage {
 
 
     int size() {
-        int counter = 0;
-        for (int i = 0; i < storage.length; i++) {
-            if (storage[i] == null) {
-                break;
-            } else counter++;
-        }
-        return counter;
+        return size;
     }
 }
