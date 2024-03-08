@@ -7,15 +7,14 @@ public class ArrayStorage {
     int size = 0;
 
     void clear() {
-        for (int i = 0; i < storage.length; i++) {
+        for (int i = 0; i < size; i++) {
             storage[i] = null;
         }
         size = 0;
     }
 
     void save(Resume resume) {
-        storage[size] = resume;
-        size++;
+        storage[size++] = resume;
     }
 
     Resume get(String uuid) {
@@ -28,12 +27,13 @@ public class ArrayStorage {
     }
 
     void delete(String uuid) {
-        for (int i = 0; i < size - 1; i++) {
+        for (int i = 0; i < size; i++) {
             if (storage[i].toString().equals(uuid)) {
                 storage[i] = storage[size - 1];
+                size--;
+                break;
             }
         }
-        size--;
     }
 
     /**
