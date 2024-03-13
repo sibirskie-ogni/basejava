@@ -12,6 +12,22 @@ public class ArrayStorage {
     Resume[] storage = new Resume[10000];
     int size = 0;
 
+    int checkMethod(String uuid) {
+        for (int i = 0; i < size; i++) {
+            if (storage[i].getUuid().equals(uuid)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    boolean isExist(int index) {
+        if (index < size && index >= 0) {
+            return true;
+        }
+        return false;
+    }
+
     public void clear() {
         Arrays.fill(storage, null);
         size = 0;
@@ -23,8 +39,9 @@ public class ArrayStorage {
                 storage[size++] = resume;
             } else
                 for (int i = 0; i < size; i++) {
-                    if (storage[i].uuid == resume.uuid) {
-                        System.out.println("ERROR: resume with this id" + resume.uuid + " have been already created");
+                    if (storage[i].getUuid() == resume.getUuid()) {
+                        System.out.println("ERROR: resume with this id" + resume.getUuid() +
+                                " have been already created");
                         break;
                     } else if (i == size - 1) {
                         storage[size++] = resume;
@@ -35,18 +52,22 @@ public class ArrayStorage {
     }
 
     void update(Resume resume) {
-        for (int i = 0; i < size; i++) {
-            if (storage[i].uuid.equals(resume.uuid)) {
-                storage[i] = resume;
-                break;
-            } else if (i == size - 1) System.out.println("ERROR: resume with id " + resume.uuid + " do not exists");
-        }
+        if (isExist(checkMethod(resume.getUuid())) == true) {
+            for (int i = 0; i < size; i++) {
+                if (storage[i].getUuid().equals(resume.getUuid())) {
+                    storage[i] = resume;
+                    break;
+                }
+            }
+        } else System.out.println("ERROR: resume with id " + resume.getUuid() + " do not exists");
     }
 
     public Resume get(String uuid) {
-        for (int i = 0; i < size; i++) {
-            if (storage[i].uuid.equals(uuid)) {
-                return storage[i];
+        if (isExist(checkMethod(uuid)) == true) {
+            for (int i = 0; i < size; i++) {
+                if (storage[i].getUuid().equals(uuid)) {
+                    return storage[i];
+                }
             }
         }
         System.out.println("ERROR: resume with id " + uuid + " haven't been created");
@@ -54,14 +75,16 @@ public class ArrayStorage {
     }
 
     public void delete(String uuid) {
-        for (int i = 0; i < size; i++) {
-            if (storage[i].toString().equals(uuid)) {
-                storage[i] = storage[size - 1];
-                storage[size - 1] = null;
-                size--;
-                break;
-            } else if (i == size - 1) System.out.println("ERROR: resume with id " + uuid + " do not exists");
-        }
+        if (isExist(checkMethod(uuid)) == true) {
+            for (int i = 0; i < size; i++) {
+                if (storage[i].toString().equals(uuid)) {
+                    storage[i] = storage[size - 1];
+                    storage[size - 1] = null;
+                    size--;
+                    break;
+                }
+            }
+        } else System.out.println("ERROR: resume with id " + uuid + " do not exists");
     }
 
     /**
