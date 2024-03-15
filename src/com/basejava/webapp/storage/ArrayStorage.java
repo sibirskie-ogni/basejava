@@ -36,9 +36,7 @@ public class ArrayStorage {
 
     public void save(Resume resume) {
         if (size <= storage.length) {
-            if (size == 0) {
-                storage[size++] = resume;
-            } else if (isExist(findIndex(resume.getUuid())) == true) {
+            if (isExist(findIndex(resume.getUuid())) == true) {
                 System.out.println("ERROR: resume with this id " + resume.getUuid() +
                         " have been already created");
             } else {
