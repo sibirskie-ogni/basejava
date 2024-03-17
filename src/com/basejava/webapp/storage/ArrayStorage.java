@@ -25,8 +25,9 @@ public class ArrayStorage {
     private boolean isExist(int index) {
         if (index >= 0) {
             return true;
+        } else {
+            return false;
         }
-        return false;
     }
 
     public void clear() {
@@ -35,36 +36,44 @@ public class ArrayStorage {
     }
 
     public void save(Resume resume) {
-        if (size <= storage.length) {
-            if (isExist(findIndex(resume.getUuid())) == true) {
-                System.out.println("ERROR: resume with this id " + resume.getUuid() +
-                        " have been already created");
-            } else {
-                storage[size++] = resume;
-            }
-        } else System.out.println("ERROR: to many resumes in database");
+        if (size > storage.length) {
+            System.out.println("ERROR: to many resumes in database");
+        } else if (isExist(findIndex(resume.getUuid())) == true) {
+            System.out.println("ERROR: resume with id " + resume.getUuid() +
+                    " have been already created");
+        } else {
+            storage[size++] = resume;
+        }
     }
 
     void update(Resume resume) {
-        if (isExist(findIndex(resume.getUuid())) == true) {
-            storage[findIndex(resume.getUuid())] = resume;
-        } else System.out.println("ERROR: resume with id " + resume.getUuid() + " do not exists");
+        int index = findIndex(resume.getUuid());
+        if (isExist(index) == true) {
+            storage[index] = resume;
+        } else {
+            System.out.println("ERROR: resume with id " + resume.getUuid() + " do not exists");
+        }
     }
 
     public Resume get(String uuid) {
-        if (isExist(findIndex(uuid)) == true) {
-            return storage[findIndex(uuid)];
+        int index = findIndex(uuid);
+        if (isExist(index) == true) {
+            return storage[index];
+        } else {
+            System.out.println("ERROR: resume with id " + uuid + " haven't been created");
         }
-        System.out.println("ERROR: resume with id " + uuid + " haven't been created");
         return null;
     }
 
     public void delete(String uuid) {
-        if (isExist(findIndex(uuid)) == true) {
-            storage[findIndex(uuid)] = storage[size - 1];
+        int index = findIndex(uuid);
+        if (isExist(index) == true) {
+            storage[index] = storage[size - 1];
             storage[size - 1] = null;
             size--;
-        } else System.out.println("ERROR: resume with id " + uuid + " do not exists");
+        } else {
+            System.out.println("ERROR: resume with id " + uuid + " do not exists");
+        }
     }
 
     /**
