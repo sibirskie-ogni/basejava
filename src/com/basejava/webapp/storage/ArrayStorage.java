@@ -22,12 +22,8 @@ public class ArrayStorage {
         return -1;
     }
 
-    private boolean isExist(int index) {
-        if (index >= 0) {
-            return true;
-        } else {
-            return false;
-        }
+    protected boolean isExist(int index) {
+        return index >= 0;
     }
 
     public void clear() {
@@ -38,7 +34,7 @@ public class ArrayStorage {
     public void save(Resume resume) {
         if (size > storage.length) {
             System.out.println("ERROR: to many resumes in database");
-        } else if (isExist(findIndex(resume.getUuid())) == true) {
+        } else if (isExist(findIndex(resume.getUuid()))) {
             System.out.println("ERROR: resume with id " + resume.getUuid() +
                     " have been already created");
         } else {
@@ -48,7 +44,7 @@ public class ArrayStorage {
 
     void update(Resume resume) {
         int index = findIndex(resume.getUuid());
-        if (isExist(index) == true) {
+        if (isExist(index)) {
             storage[index] = resume;
         } else {
             System.out.println("ERROR: resume with id " + resume.getUuid() + " do not exists");
@@ -57,17 +53,17 @@ public class ArrayStorage {
 
     public Resume get(String uuid) {
         int index = findIndex(uuid);
-        if (isExist(index) == true) {
+        if (isExist(index)) {
             return storage[index];
         } else {
             System.out.println("ERROR: resume with id " + uuid + " haven't been created");
+            return null;
         }
-        return null;
     }
 
     public void delete(String uuid) {
         int index = findIndex(uuid);
-        if (isExist(index) == true) {
+        if (isExist(index)) {
             storage[index] = storage[size - 1];
             storage[size - 1] = null;
             size--;
