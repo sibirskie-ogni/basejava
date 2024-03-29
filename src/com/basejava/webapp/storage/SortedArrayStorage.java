@@ -15,12 +15,9 @@ public class SortedArrayStorage extends AbstractArrayStorage {
             for (int i = size; i > index - 1; i--) {
                 storage[i] = storage[i - 1];
             }
-            storage[index - 1] = resume;
-            size++;
-        } else {
-            storage[index - 1] = resume;
-            size++;
         }
+        storage[index - 1] = resume;
+        size++;
     }
 
     @Override
