@@ -26,7 +26,6 @@ public abstract class AbstractArrayStorage implements Storage {
             System.out.println("ERROR: resume with id " + resume.getUuid() +
                     " have been already created");
         } else {
-//            storage[size++] = resume;
             saveResume(resume);
         }
     }
