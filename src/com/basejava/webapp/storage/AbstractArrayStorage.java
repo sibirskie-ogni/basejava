@@ -19,7 +19,7 @@ public abstract class AbstractArrayStorage implements Storage {
         return size;
     }
 
-    public void save(Resume resume) {
+    public final void save(Resume resume) {
         if (size > storage.length) {
             System.out.println("ERROR: to many resumes in database");
         } else if (isExist(getIndex(resume.getUuid()))) {
@@ -40,7 +40,7 @@ public abstract class AbstractArrayStorage implements Storage {
         }
     }
 
-    public void delete(String uuid) {
+    public final void delete(String uuid) {
         int index = getIndex(uuid);
         if (isExist(index)) {
             deleteResume(uuid);
