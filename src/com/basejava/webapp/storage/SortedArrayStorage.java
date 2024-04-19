@@ -21,6 +21,7 @@ public class SortedArrayStorage extends AbstractArrayStorage {
             }
         }
         storage[index - 1] = resume;
+        size++;
     }
 
     @Override
@@ -29,7 +30,7 @@ public class SortedArrayStorage extends AbstractArrayStorage {
         if (isExist(index)) {
             for (int i = index; i < size; i++) {
                 storage[i] = storage[i + 1];
-            }
+            }size--;
         }
     }
 }
