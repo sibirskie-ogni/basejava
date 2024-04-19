@@ -67,8 +67,8 @@ public abstract class AbstractArrayStorageTest {
         Assert.assertArrayEquals(new Resume[]{new Resume(UUID_1),
                         new Resume(UUID_2),
                         new Resume(UUID_3)
-                }
-                , storage.getAll());
+                },
+                storage.getAll());
     }
 
     @Test
