@@ -32,15 +32,12 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected void setUpdate(int index, Resume resume) {
-        storage[index] = resume;
+    protected void doUpdate(Object searchKey, Resume resume) {
+        storage[(int) searchKey] = resume;
     }
 
     @Override
-    protected Resume setGet(String uuid) {
-        int index = getIndex(uuid);
-        return storage[index];
+    protected Resume doGet(Object searchKey) {
+        return storage[(int) searchKey];
     }
-
-    protected abstract int getIndex(String uuid);
 }

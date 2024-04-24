@@ -8,7 +8,7 @@ import com.basejava.webapp.model.Resume;
 
 public class ArrayStorage extends AbstractArrayStorage {
 
-    protected int getIndex(String uuid) {
+    protected Object getSearchKey(String uuid) {
         for (int i = 0; i < size; i++) {
             if (uuid.equals(storage[i].getUuid())) {
                 return i;
@@ -18,16 +18,21 @@ public class ArrayStorage extends AbstractArrayStorage {
     }
 
     @Override
-    protected void saveResume(Resume resume) {
+    protected void doSave(Object searchKey, Resume resume) {
         storage[size++] = resume;
     }
 
     @Override
-    protected void deleteResume(String uuid) {
-        int index = getIndex(uuid);
-        if (isExist(index)) {
-            storage[index] = storage[size - 1];
+    protected void doDelete(Object searchKey) {
+        if (isExist(searchKey)) {
+            storage[(int) searchKey] = storage[size - 1];
             storage[size - 1] = null;
-        }size--;
+        }
+        size--;
+    }
+
+    @Override
+    protected boolean isExist(Object searchKey) {
+        return (Integer) searchKey >= 0;
     }
 }

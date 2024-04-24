@@ -7,30 +7,33 @@ import java.util.Arrays;
 public class SortedArrayStorage extends AbstractArrayStorage {
 
     @Override
-    protected int getIndex(String uuid) {
+    protected Object getSearchKey(String uuid) {
         Resume searchKey = new Resume(uuid);
         return Arrays.binarySearch(storage, 0, size, searchKey);
     }
 
     @Override
-    protected void saveResume(Resume resume) {
-        int index = -getIndex(resume.getUuid());
-        if (isExist(index - 1) && storage[index - 1] != null) {
-            for (int i = size; i > index - 1; i--) {
+    protected void doSave(Object searchKey, Resume resume) {
+        if (isExist(-(Integer)searchKey - 1) && storage[-(Integer) searchKey - 1] != null) {
+            for (int i = size; i > -(Integer) searchKey - 1; i--) {
                 storage[i] = storage[i - 1];
             }
         }
-        storage[index - 1] = resume;
+        storage[-(Integer) searchKey - 1] = resume;
         size++;
     }
 
     @Override
-    protected void deleteResume(String uuid) {
-        int index = getIndex(uuid);
-        if (isExist(index)) {
-            for (int i = index; i < size; i++) {
+    protected void doDelete(Object searchKey) {
+        if (isExist(searchKey)) {
+            for (int i =(Integer) searchKey; i < size; i++) {
                 storage[i] = storage[i + 1];
             }size--;
         }
+    }
+
+    @Override
+    protected boolean isExist(Object searchKey) {
+        return (Integer)searchKey >=0;
     }
 }

@@ -1,5 +1,6 @@
 package com.basejava.webapp.storage;
 
+import com.basejava.webapp.exception.NotExistStorageException;
 import com.basejava.webapp.model.Resume;
 
 import java.util.ArrayList;
@@ -11,12 +12,12 @@ public class ListStorage extends AbstractStorage {
 
     @Override
     public void clear() {
-        storage.removeAll(storage);
+        storage.clear();
     }
 
     @Override
     public void save(Resume resume) {
-        saveAndException(resume);
+        storage.add(resume);
     }
 
     @Override
@@ -30,34 +31,37 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected void setUpdate(int index, Resume resume) {
-        storage.set(index, resume);
+    protected void doUpdate(Object searchKey, Resume resume) {
+        storage.set((Integer) searchKey, resume);
     }
 
     @Override
-    protected Resume setGet(String uuid) {
-        int index = getIndex(uuid);
-        return storage.get(index);
+    protected Resume doGet(Object searchKey) {
+        return storage.get((Integer) searchKey);
     }
 
     @Override
-    protected void saveResume(Resume resume) {
+    protected void doSave(Object searchKey, Resume resume) {
         storage.add(resume);
     }
 
     @Override
-    protected void deleteResume(String uuid) {
-        int index = getIndex(uuid);
-        storage.remove(index);
+    protected void doDelete(Object searchKey) {
+        storage.remove((int) searchKey);
     }
 
     @Override
-    protected int getIndex(String uuid) {
+    protected boolean isExist(Object searchKey) {
+        return searchKey != null;
+    }
+
+    @Override
+    protected Object getSearchKey(String uuid) {
         for (int i = 0; i < storage.size(); i++) {
             if (storage.get(i).getUuid().equals(uuid))
                 return i;
         }
-        return -1;
+        throw new NotExistStorageException(uuid + " is not exists");
     }
 }
 
