@@ -24,10 +24,8 @@ public class ArrayStorage extends AbstractArrayStorage {
 
     @Override
     protected void doDelete(Object searchKey) {
-        if (isExist(searchKey)) {
-            storage[(int) searchKey] = storage[size - 1];
-            storage[size - 1] = null;
-        }
+        storage[(int) searchKey] = storage[size - 1];
+        storage[size - 1] = null;
         size--;
     }
 

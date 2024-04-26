@@ -1,6 +1,8 @@
-package com.basejava.webapp.storage;
+package com.basejava.webapp;
 
 import com.basejava.webapp.model.Resume;
+import com.basejava.webapp.storage.MapStorage;
+import com.basejava.webapp.storage.Storage;
 
 /**
  * Test for your ArrayStorage implementation
