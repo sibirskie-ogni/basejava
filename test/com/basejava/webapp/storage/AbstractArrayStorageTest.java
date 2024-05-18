@@ -111,11 +111,11 @@ public abstract class AbstractArrayStorageTest {
 
     @Test(expected = StorageException.class)
     public void saveOverflow() {
-        for (int i = storage.size() + 1; i <= AbstractArrayStorage.STORAGE_LIMIT; i++) {
-            storage.save(new Resume("uuid " + i));
-        }
-        assertSize(storage.size());
-        storage.save(new Resume("uuid10001"));
+            for (int i = storage.size() + 1; i <= AbstractArrayStorage.STORAGE_LIMIT; i++) {
+                storage.save(new Resume("uuid " + i));
+            }
+            assertSize(storage.size());
+            storage.save(new Resume("uuid10001"));
     }
 
     public void assertSize(int size) {
