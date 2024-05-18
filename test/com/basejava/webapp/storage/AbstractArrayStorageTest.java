@@ -12,17 +12,23 @@ public abstract class AbstractArrayStorageTest {
     private final Storage storage;
 
     private static final String UUID_1 = "uuid1";
+    private static final String UUID_1_NAME = "Ivan Ivanov";
     private static final String UUID_2 = "uuid2";
+    private static final String UUID_2_NAME = "Andrey Andreev";
     private static final String UUID_3 = "uuid3";
+    private static final String UUID_3_NAME = "Sergey Sergeev";
     private static final String UUID_4 = "uuid4";
+    private static final String UUID_4_NAME = "Stepan Stepanov";
     private static final String UUID_5 = "uuid3";
+    private static final String UUID_5_NAME = "Aleksey Alekseev";
     private static final String DUMMY = "dummy";
+    private static final String EXAMPLE_NAME = "Example name № ";
 
-    private static final Resume resume1 = new Resume(UUID_1);
-    private static final Resume resume2 = new Resume(UUID_2);
-    private static final Resume resume3 = new Resume(UUID_3);
-    private static final Resume resume4 = new Resume(UUID_4);
-    private static final Resume resume5 = new Resume(UUID_5);
+    private static final Resume resume1 = new Resume(UUID_1,UUID_1_NAME);
+    private static final Resume resume2 = new Resume(UUID_2,UUID_2_NAME);
+    private static final Resume resume3 = new Resume(UUID_3,UUID_3_NAME);
+    private static final Resume resume4 = new Resume(UUID_4,UUID_4_NAME);
+    private static final Resume resume5 = new Resume(UUID_5,UUID_5_NAME);
 
     private static final Resume[] noResumes = {};
     private static final int INITIAL_SIZE = 3;
@@ -64,9 +70,9 @@ public abstract class AbstractArrayStorageTest {
 
     @Test
     public void getAll() throws Exception {
-        Assert.assertArrayEquals(new Resume[]{new Resume(UUID_1),
-                        new Resume(UUID_2),
-                        new Resume(UUID_3)
+        Assert.assertArrayEquals(new Resume[]{new Resume(UUID_1,UUID_1_NAME),
+                        new Resume(UUID_2,UUID_2_NAME),
+                        new Resume(UUID_3,UUID_3_NAME)
                 },
                 storage.getAll());
     }
@@ -74,7 +80,7 @@ public abstract class AbstractArrayStorageTest {
     @Test
     public void save() throws Exception {
         assertSize(INITIAL_SIZE);
-        storage.save(new Resume(UUID_4));
+        storage.save(new Resume(UUID_4,UUID_4_NAME));
         assertSize(INITIAL_SIZE + 1);
         assertGet(storage.get(UUID_4));
     }
@@ -112,10 +118,10 @@ public abstract class AbstractArrayStorageTest {
     @Test(expected = StorageException.class)
     public void saveOverflow() {
             for (int i = storage.size() + 1; i <= AbstractArrayStorage.STORAGE_LIMIT; i++) {
-                storage.save(new Resume("uuid " + i));
+                storage.save(new Resume("uuid " + i,EXAMPLE_NAME+i));
             }
             assertSize(storage.size());
-            storage.save(new Resume("uuid10001"));
+            storage.save(new Resume("uuid10001",EXAMPLE_NAME));
     }
 
     public void assertSize(int size) {
