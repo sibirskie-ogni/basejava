@@ -7,9 +7,13 @@ public class Resume implements Comparable<Resume> {
 
     // Unique identifier
     private String uuid;
+//    private String fullName;
 
-    public Resume(String uuid) {
+    public Resume(String uuid
+//            ,String fullName
+    ) {
         this.uuid = uuid;
+//        this.fullName = fullName;
     }
 
     public Resume() {
@@ -43,4 +47,12 @@ public class Resume implements Comparable<Resume> {
     public int compareTo(Resume resume) {
         return uuid.compareTo(resume.uuid);
     }
+
+//    public String getFullName() {
+//        return fullName;
+//    }
+//
+//    public void setFullName(String fullName) {
+//        this.fullName = fullName;
+//    }
 }

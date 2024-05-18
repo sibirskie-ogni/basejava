@@ -1,14 +1,14 @@
 package com.basejava.webapp;
 
 import com.basejava.webapp.model.Resume;
-import com.basejava.webapp.storage.MapStorage;
+import com.basejava.webapp.storage.ArrayStorage;
 import com.basejava.webapp.storage.Storage;
 
 /**
  * Test for your ArrayStorage implementation
  */
 public class MainTestArrayStorage {
-    static final Storage STORAGE = new MapStorage();
+    static final Storage STORAGE = new ArrayStorage();
 
     public static void main(String[] args) {
         Resume r1 = new Resume("uuid1");
@@ -39,7 +39,7 @@ public class MainTestArrayStorage {
 
     static void printAll() {
         System.out.println("\nGet All");
-        for (Resume r : STORAGE.getAll()) {
+        for (Resume r : STORAGE.getAllSorted()) {
             System.out.println(r);
         }
     }
