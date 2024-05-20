@@ -69,8 +69,8 @@ public abstract class AbstractStorageTest {
 
     @Test
     public void getAll() throws Exception {
-        Assert.assertArrayEquals(new Resume[]{new Resume(UUID_1,UUID_1_NAME),
-                        new Resume(UUID_2,UUID_2_NAME),
+        Assert.assertArrayEquals(new Resume[]{new Resume(UUID_2,UUID_2_NAME),
+                        new Resume(UUID_1,UUID_1_NAME),
                         new Resume(UUID_3,UUID_3_NAME)
                 },
                 storage.getAllSorted().toArray( new Resume[0] ) );

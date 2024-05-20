@@ -1,5 +1,6 @@
 package com.basejava.webapp.storage;
 
+import com.basejava.webapp.exception.StorageException;
 import com.basejava.webapp.model.Resume;
 
 /**
@@ -19,6 +20,9 @@ public class ArrayStorage extends AbstractArrayStorage {
 
     @Override
     protected void doSave(Object searchKey, Resume resume) {
+        if(size>=STORAGE_LIMIT){
+            throw new StorageException("Storage exception", resume.getUuid());
+        }
         storage[size++] = resume;
     }
 
