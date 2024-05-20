@@ -34,7 +34,7 @@ public class MapStorage extends AbstractStorage {
 
     @Override
     protected boolean isExist(Object searchKey) {
-        return storage.containsKey(searchKey);
+        return storage.containsKey((String) searchKey);
     }
 
     @Override
@@ -43,17 +43,7 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    public void save(Resume resume) {
-        storage.put(resume.getUuid(), resume);
-    }
-
-    @Override
-    public Resume[] getAll() {
-        return storage.values().toArray(new Resume[0]);
-    }
-
-    @Override
-    public List<Resume> getAllSorted() {
+    public List<Resume> doGetAll() {
         return new ArrayList<>(storage.values()); }
 
     @Override

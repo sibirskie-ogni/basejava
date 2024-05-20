@@ -1,6 +1,5 @@
 package com.basejava.webapp.storage;
 
-import com.basejava.webapp.exception.StorageException;
 import com.basejava.webapp.model.Resume;
 
 import java.util.Arrays;
@@ -17,17 +16,11 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         return size;
     }
 
-    public final void save(Resume resume) {
-        if (size >= storage.length) {
-            throw new StorageException("Storage overflow", resume.getUuid());
-        } else saveAndException(resume);
-    }
-
     public Resume[] getAll() {
         return Arrays.copyOf(storage, size);
     }
 
-    public List<Resume> getAllSorted(){
+    public List<Resume> doGetAll(){
         return Arrays.asList(Arrays.copyOf(storage,size));
     }
 

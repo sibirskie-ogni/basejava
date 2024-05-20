@@ -7,16 +7,17 @@ import java.util.Arrays;
 public class SortedArrayStorage extends AbstractArrayStorage {
 
     @Override
-    protected Object getSearchKey(String uuid) {
-        Resume searchKey = new Resume(uuid,uuid);
-        return Arrays.binarySearch(storage, 0, size, searchKey);
+    protected Object getSearchKey( String uuid ) {
+        Resume searchKey = new Resume( uuid, uuid );
+        return Arrays.binarySearch( storage, 0, size, searchKey );
     }
 
     @Override
-    protected void doSave(Object searchKey, Resume resume) {
-        if (isExist(-(Integer)searchKey - 1) && storage[-(Integer) searchKey - 1] != null) {
-            for (int i = size; i > -(Integer) searchKey - 1; i--) {
-                storage[i] = storage[i - 1];
+    protected void doSave( Object searchKey, Resume resume ) {
+        if ( isExist( -(Integer) searchKey - 1 ) && storage[-(Integer) searchKey - 1] != null ) {
+            if ( size - ( -(Integer) searchKey - 1 ) >= 0 ) {
+                System.arraycopy( storage, -(Integer) searchKey - 1, storage, -(Integer) searchKey, size - ( -(Integer) searchKey - 1 ) );
+
             }
         }
         storage[-(Integer) searchKey - 1] = resume;
@@ -24,16 +25,17 @@ public class SortedArrayStorage extends AbstractArrayStorage {
     }
 
     @Override
-    protected void doDelete(Object searchKey) {
-        if (isExist(searchKey)) {
-            for (int i =(Integer) searchKey; i < size; i++) {
-                storage[i] = storage[i + 1];
-            }size--;
+    protected void doDelete( Object searchKey ) {
+        if ( isExist( searchKey ) ) {
+            if ( size - (Integer) searchKey >= 0 ) {
+                System.arraycopy( storage, (Integer) searchKey + 1, storage, (Integer) searchKey, size - (Integer) searchKey );
+            }
+            size--;
         }
     }
 
     @Override
-    protected boolean isExist(Object searchKey) {
-        return (Integer)searchKey >=0;
+    protected boolean isExist( Object searchKey ) {
+        return (Integer) searchKey >= 0;
     }
 }
